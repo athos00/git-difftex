@@ -1,0 +1,22 @@
+#!/bin/bash
+
+read -r -p 'commit hash: ' hash
+read -r -p 'path to file name to compare: ' filepath
+
+#download the file and save it as tmp:
+git show $hash:$filepath > tmp.tex
+
+read -r -p 'file to compare the commit against: ' comparefile
+
+# get difference file:
+latexdiff tmp.tex $comparefile > tmpdiff.tex
+
+# compile pdf with references:
+latexmk -interaction=nonstopmode tmpdiff.tex
+latexmk -interaction=nonstopmode tmpdiff.tex
+bibtex tmpdiff
+latexmk -pdf -interaction=nonstopmode tmpdiff.tex
+
+# clean up so only 1 new file called "Diffed.pdf"
+mv -v tmpdiff.pdf Diffed.pdf
+rm tmp*
