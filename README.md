@@ -1,1 +1,1 @@
-# git-texdiff
+# git-difftex
