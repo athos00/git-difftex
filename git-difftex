@@ -1,15 +1,14 @@
 #!/bin/bash
 
 read -r -p 'commit hash: ' hash
-read -r -p 'path to file name to compare: ' filepath
+read -r -p 'name of tex file to compare: ' filename
 
+gitPath=$(git rev-parse --show-prefix)
 #download the file and save it as tmp:
-git show $hash:$filepath > tmp.tex
-
-read -r -p 'file to compare the commit against: ' comparefile
+git show $hash:$gitPath$filename > tmp.tex
 
 # get difference file:
-latexdiff tmp.tex $comparefile > tmpdiff.tex
+latexdiff tmp.tex $filename > tmpdiff.tex
 
 # compile pdf with references:
 latexmk -interaction=nonstopmode tmpdiff.tex
