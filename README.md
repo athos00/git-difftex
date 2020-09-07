@@ -4,7 +4,7 @@
 
 1. Put git-difftex where you keep your globally accessible custom scripts, e.g. bin: on a Mac: /Users/yourName/bin/ or possibly create ~/customBin
 
-2. Add path of your bin to .bash_profile:
+2. Add path of your bin to .bash_profile (mac) or .bashrc (ubuntu):
 
 ```
 open ~/.bash_profile
