@@ -1,0 +1,20 @@
+#!/bin/bash
+
+read -r -p 'name of new file: ' filenew
+read -r -p 'name of tex file to compare: ' filename
+
+# copy file as tmp
+cp $filename tmp.tex
+
+# get difference file:
+latexdiff tmp.tex $filenew > tmpdiff.tex
+
+# compile pdf with references:
+latexmk -interaction=nonstopmode tmpdiff.tex
+latexmk -interaction=nonstopmode tmpdiff.tex
+bibtex tmpdiff
+latexmk -pdf -interaction=nonstopmode tmpdiff.tex
+
+# clean up so only 1 new file called "Diffed.pdf"
+mv -v tmpdiff.pdf Diffed.pdf
+rm tmp*
